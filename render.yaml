@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: research-assistant-api
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    # NOTE ON GUNICORN VS UVICORN:
+    # While gunicorn with uvicorn workers (e.g. `gunicorn api.server:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT`)
+    # is the standard production preference, Render's Free tier limits memory to 512MB RAM.
+    # Running multiple Gunicorn workers along with LangGraph and ChromaDB in-memory will frequently cause Out-Of-Memory (OOM) crashes.
+    # Therefore, we use a single direct Uvicorn worker which keeps the memory footprint low enough for the Free tier.
+    startCommand: "python -m uvicorn api.server:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: "https://research-assistant.vercel.app,http://localhost:5173"
+      - key: CHROMA_DB_PATH
+        value: "./agent/chroma_db"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
+      - key: TZ
+        value: "UTC"
