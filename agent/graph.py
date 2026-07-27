@@ -83,23 +83,25 @@ from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, ToolMe
 
 def _get_llm():
     """Initialize LLM based on env vars."""
-    api_key_groq = os.getenv("GROQ_API_KEY")
-    api_key_openai = os.getenv("OPENAI_API_KEY")
+    raw_groq_key = os.getenv("GROQ_API_KEY")
+    raw_openai_key = os.getenv("OPENAI_API_KEY")
     model_name = os.getenv("LLM_MODEL")
     
-    if api_key_groq:
+    if raw_groq_key:
+        clean_groq_key = raw_groq_key.strip().strip("'\"")
         return ChatGroq(
             model=model_name or "llama-3.3-70b-versatile",
             temperature=0,
-            api_key=api_key_groq,
+            api_key=clean_groq_key,
             max_retries=3,
             request_timeout=60.0
         )
-    elif api_key_openai:
+    elif raw_openai_key:
+        clean_openai_key = raw_openai_key.strip().strip("'\"")
         return ChatOpenAI(
             model=model_name or "gpt-4-turbo",
             temperature=0,
-            api_key=api_key_openai,
+            api_key=clean_openai_key,
             max_retries=3,
             request_timeout=60.0
         )
@@ -376,10 +378,12 @@ async def run_agent_streaming(
                     )
                 elif "Connection error" in err_str or "ConnectError" in str(type(err).__name__):
                     logger.error(f"Groq API connection error: {err}")
-                    yield {"event": "error", "data": {"message": "Groq LLM API Connection Error. Please verify your GROQ_API_KEY environment variable on Render."}}
+                    yield {"event": "error", "data": {"message": f"Groq API Connection Error ({type(err).__name__}: {err}). Please check your GROQ_API_KEY on Render."}}
                     return
                 else:
-                    raise err
+                    logger.error(f"LLM execution error: {err}")
+                    yield {"event": "error", "data": {"message": f"LLM Error: {err_str}"}}
+                    return
             messages.append(response)
             
             # Check if LLM wants to call tools
