@@ -121,7 +121,10 @@ export function streamAgent(request: AgentQueryRequest, callbacks: StreamCallbac
       }
     }
   }).catch(err => {
-    callbacks.onError?.({ message: err.message || 'Failed to start stream' })
+    const errorMsg = err.message === 'Failed to fetch'
+      ? 'Failed to connect to backend API. If the server was idle, Render is spinning up from cold start (~30s). Please try sending your query again in a moment.'
+      : err.message || 'Failed to start stream'
+    callbacks.onError?.({ message: errorMsg })
   })
 
   return controller
