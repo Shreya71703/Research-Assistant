@@ -169,24 +169,21 @@ For complete payloads and curl examples, see [API_REFERENCE.md](API_REFERENCE.md
 
 ---
 
-## 📸 Screenshots Showcase
+## 📸 Interactive Application Modules
 
-<details>
-<summary><b>View Screenshots Sections</b></summary>
+The application features 9 interactive workspace modules accessible from the universal navigation sidebar:
 
-### Dashboard Overview
-![Dashboard](https://raw.githubusercontent.com/Shreya71703/Research-Assistant/main/docs/dashboard.png)
-
-### Research Workspace & Tool Execution
-![Research Workspace](https://raw.githubusercontent.com/Shreya71703/Research-Assistant/main/docs/research.png)
-
-### Projects Kanban Board
-![Projects](https://raw.githubusercontent.com/Shreya71703/Research-Assistant/main/docs/projects.png)
-
-### Knowledge Base & Telemetry
-![Knowledge Base](https://raw.githubusercontent.com/Shreya71703/Research-Assistant/main/docs/knowledge-base.png)
-
-</details>
+| Module | Features & Capabilities |
+|---|---|
+| 📊 **Dashboard** | Hero welcome greeting, 4 floating telemetry cards, interactive Recharts weekly research activity area chart, quick query prompt chips, live API & engine health status indicators. |
+| 💬 **Research Workspace** | 3-panel research environment with collapsible conversation history sidebar, center message thread with real-time SSE streaming, syntax-highlighted code blocks, animated tool execution cards, and right panel with extracted sources timeline. |
+| 📋 **Projects Kanban** | Interactive project board with status columns (`Planning`, `In Progress`, `Under Review`, `Completed`), category tags, progress bars, and category filter chips. |
+| 📁 **Documents Workspace** | Multi-format file upload dropzone supporting PDF, DOCX, Markdown, and CSV file formats with search and view toggles. |
+| 🗄️ **Knowledge Base** | Vector database telemetry metrics (total chunks, embedding count, recall rate), collection indices, and semantic search testing tool. |
+| 📝 **Reports Generator** | Executive briefing report generator with one-click export triggers for PDF, Markdown, and DOCX briefing formats. |
+| 📈 **Analytics Telemetry** | Token consumption charts, tool execution distribution bar charts, and computational hours saved statistics. |
+| 🧩 **Tool Integrations** | Agent tool configuration manager with individual enable/disable toggle switches for Web Search, Weather, ArXiv, GitHub, and Calculator tools. |
+| ⚙️ **Settings & Themes** | User profile settings, API key configurations, keyboard shortcut reference, and system-independent Light / Dark theme selector. |
 
 ---
 
