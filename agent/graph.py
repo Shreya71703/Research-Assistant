@@ -91,18 +91,22 @@ def _get_llm():
         return ChatGroq(
             model=model_name or "llama-3.3-70b-versatile",
             temperature=0,
-            api_key=api_key_groq
+            api_key=api_key_groq,
+            max_retries=3,
+            request_timeout=60.0
         )
     elif api_key_openai:
         return ChatOpenAI(
             model=model_name or "gpt-4-turbo",
             temperature=0,
-            api_key=api_key_openai
+            api_key=api_key_openai,
+            max_retries=3,
+            request_timeout=60.0
         )
     else:
         raise ValueError(
             "Neither GROQ_API_KEY nor OPENAI_API_KEY set. "
-            "Set at least one in .env file."
+            "Set at least one in environment variables."
         )
 
 
@@ -357,19 +361,23 @@ async def run_agent_streaming(
                 yield {"event": "error", "data": {"message": f"Timed out after {timeout}s"}}
                 return
             
-            # Call LLM (with graceful fallback if tool call formatting fails)
             try:
                 response = await asyncio.wait_for(
                     llm_with_tools.ainvoke(messages),
                     timeout=max(5, timeout - (time.time() - start_time))
                 )
             except Exception as err:
-                if "tool_use_failed" in str(err) or "BadRequestError" in str(type(err).__name__) or "400" in str(err):
+                err_str = str(err)
+                if "tool_use_failed" in err_str or "BadRequestError" in str(type(err).__name__) or "400" in err_str:
                     logger.warning(f"Tool call parser fallback triggered: {err}")
                     response = await asyncio.wait_for(
                         llm.ainvoke(messages),
                         timeout=max(5, timeout - (time.time() - start_time))
                     )
+                elif "Connection error" in err_str or "ConnectError" in str(type(err).__name__):
+                    logger.error(f"Groq API connection error: {err}")
+                    yield {"event": "error", "data": {"message": "Groq LLM API Connection Error. Please verify your GROQ_API_KEY environment variable on Render."}}
+                    return
                 else:
                     raise err
             messages.append(response)
