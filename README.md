@@ -9,12 +9,12 @@
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.2-FF6F00?logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph/)
 [![Groq Llama 3.3](https://img.shields.io/badge/Groq-Llama_3.3_70B-F05032?logo=groq&logoColor=white)](https://groq.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Deployed on Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?logo=vercel&logoColor=white)](https://research-assistant.vercel.app)
+[![Deployed on Vercel](https://img.shields.io/badge/Vercel-Frontend-000000?logo=vercel&logoColor=white)](https://research-assistant-delta-brown.vercel.app)
 [![Deployed on Render](https://img.shields.io/badge/Render-Backend-46E3B7?logo=render&logoColor=black)](https://research-assistant-api.onrender.com)
 
 > An autonomous, multi-tool AI Research Assistant platform engineered with **React 18, TypeScript, Tailwind CSS**, and a **FastAPI + LangGraph + Groq Llama 3.3 70B** engine.
 
-[Live Demo](https://research-assistant.vercel.app) · [API Documentation](API_REFERENCE.md) · [System Architecture](ARCHITECTURE.md) · [Deployment Guide](DEPLOYMENT.md)
+[Live Demo](https://research-assistant-delta-brown.vercel.app) · [API Documentation](API_REFERENCE.md) · [System Architecture](ARCHITECTURE.md) · [Deployment Guide](DEPLOYMENT.md)
 
 ---
 
