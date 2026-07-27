@@ -3,6 +3,10 @@ node_modules/
 frontend/node_modules/
 frontend/dist/
 
+# Build caches & tsbuildinfo
+*.tsbuildinfo
+frontend/*.tsbuildinfo
+
 # Environment
 .env
 .env.local
