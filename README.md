@@ -187,16 +187,6 @@ The application features 9 interactive workspace modules accessible from the uni
 
 ---
 
-## 🚀 100% Free Production Deployment
-
-Deploys for **$0/month** without entering a credit card:
-
-1. **Backend (Render)**: Connect repo to Render.com → Select `Python` → Build: `pip install -r requirements.txt` → Start: `python -m uvicorn api.server:app --host 0.0.0.0 --port $PORT`.
-2. **Frontend (Vercel)**: Import repo to Vercel.com → Framework: `Vite` → Root Directory: `frontend` → Set `VITE_API_URL=https://research-assistant-api.onrender.com`.
-
-For full step-by-step instructions, view [DEPLOYMENT.md](DEPLOYMENT.md).
-
----
 
 ## 🗺️ Roadmap & Contributing
 
